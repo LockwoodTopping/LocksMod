@@ -35,6 +35,7 @@ public class TutorialMod {
 
         ModCreativeModeTabs.register(modEventBus);
 
+        // Send modEventBus to Mod Directories
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
