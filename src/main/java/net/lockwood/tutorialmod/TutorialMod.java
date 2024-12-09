@@ -2,6 +2,7 @@ package net.lockwood.tutorialmod;
 
 import com.mojang.logging.LogUtils;
 import net.lockwood.tutorialmod.block.ModBlocks;
+import net.lockwood.tutorialmod.item.ModCreativeModeTabs;
 import net.lockwood.tutorialmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,9 +29,11 @@ public class TutorialMod {
 
     public TutorialMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        ModCreativeModeTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -41,7 +44,7 @@ public class TutorialMod {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event)  {
 
     }
 
@@ -54,6 +57,7 @@ public class TutorialMod {
 
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.ALEXANDRITE_BLOCK);
+            event.accept(ModBlocks.RAW_ALEXANDRITE_BLOCK);
         }
     }
 
@@ -68,7 +72,7 @@ public class TutorialMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            
+
         }
     }
 }
